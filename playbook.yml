@@ -1,0 +1,31 @@
+---
+- name: Bring Up Minecraft Server
+  hosts: minecraftservers
+
+  roles:
+    - role: base-ubuntu
+    - role: java
+
+  tasks: 
+  - file: path=/srv/minecraft-server/ state=directory
+    sudo: true
+  - copy: src=./files/minecraft_server.1.8.3.jar dest=/srv/minecraft-server/minecraft_server.jar
+    sudo: true
+  - copy: src=./files/eula.txt dest=/srv/minecraft-server/eula.txt
+    sudo: true
+  - group: name=minecraft state=present
+    sudo: true
+  - user: createhome=no group=minecraft home=/srv/minecraft-server name=minecraft state=present
+    sudo: true
+  - copy: src=./files/minecraft dest=/etc/init.d/minecraft mode="0755"
+    sudo: true
+  - file: recurse=yes owner=minecraft group=minecraft path=/srv/minecraft-server
+    sudo: true
+  - command: update-rc.d minecraft defaults
+    sudo: true
+    notify: start minecraft
+  handlers:
+  - name: start minecraft
+    service: name=minecraft state=started
+    sudo: true
+
