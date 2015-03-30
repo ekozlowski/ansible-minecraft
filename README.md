@@ -3,6 +3,11 @@ Ansible Minecraft
 
 Scripts I wrote to setup my Minecraft server(s) for my kiddos so I didn't have to worry about it!
 
+* You will have to work around the eula.txt by yourself.
+* You will have to download the minecraft jar file yourself.
+
+These things were left out for a reason.
+
 -- Note, this is a work in progress...
 
 Requirements
