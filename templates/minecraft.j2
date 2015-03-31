@@ -21,11 +21,11 @@
  SERVICE='minecraft_server.jar'
  OPTIONS='nogui'
  USERNAME='minecraft'
- WORLD='world'
- MCPATH='/srv/minecraft-server'
- BACKUPPATH='/media/remote.share/minecraft.backup'
- MAXHEAP=1024
- MINHEAP=1024
+ WORLD='{{ level_name }}'
+ MCPATH='{{ mc_path }}'
+ BACKUPPATH='{{ mc_backup_path }}'
+ MAXHEAP={{ max_heap_mb }}
+ MINHEAP={{ min_heap_mb }}
  HISTORY=1024
  CPU_COUNT=2
  INVOCATION="java -Xmx${MAXHEAP}M -Xms${MINHEAP}M -XX:+UseConcMarkSweepGC \

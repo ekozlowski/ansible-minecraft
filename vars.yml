@@ -1,0 +1,13 @@
+---
+level_name: EdsWorld
+spawn_monsters: true
+pvp: false
+max_players: 5
+spawn_animals: true
+generate_structures: true
+motd: Welcome to Eds World!
+level_seed: 1977
+mc_path: /srv/minecraft-server
+mc_backup_path: /srv/minecraft-server/backups
+max_heap_mb: 1024
+min_heap_mb: 1024

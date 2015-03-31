@@ -2,30 +2,51 @@
 - name: Bring Up Minecraft Server
   hosts: minecraftservers
 
+  vars_files:
+    - vars.yml
+
   roles:
     - role: base-ubuntu
     - role: java
 
-  tasks: 
+  tasks:
   - file: path=/srv/minecraft-server/ state=directory
+    sudo: true
+  - file: path=/srv/minecraft-server/backups/ state=directory
     sudo: true
   - copy: src=./files/minecraft_server.1.8.3.jar dest=/srv/minecraft-server/minecraft_server.jar
     sudo: true
   - copy: src=./files/eula.txt dest=/srv/minecraft-server/eula.txt
     sudo: true
+
+  # Create the minecraft User
   - group: name=minecraft state=present
     sudo: true
   - user: createhome=no group=minecraft home=/srv/minecraft-server name=minecraft state=present
     sudo: true
-  - copy: src=./files/minecraft dest=/etc/init.d/minecraft mode="0755"
+
+  # Install the Minecraft service script
+  - template: src=./templates/minecraft.j2 dest=/etc/init.d/minecraft mode="0755"
     sudo: true
+
+  # change owner/group of /srv/minecraft-server to the minecraft user/group.
   - file: recurse=yes owner=minecraft group=minecraft path=/srv/minecraft-server
     sudo: true
+
+  # update rc.d so minecraft starts on load
   - command: update-rc.d minecraft defaults
     sudo: true
     notify: start minecraft
+
+  # update the server configuration
+  - template: src=./templates/server.properties.j2 dest=/srv/minecraft-server/server.properties owner=minecraft group=minecraft mode=0644
+    sudo: true
+    notify: restart minecraft
+
   handlers:
   - name: start minecraft
     service: name=minecraft state=started
     sudo: true
-
+  - name: restart minecraft
+    service: name=minecraft state=restarted
+    sudo: true

@@ -13,6 +13,7 @@ end
     minecraft.vm.box = "precise64"
     minecraft.vm.box_url = "http://files.vagrantup.com/precise64.box"
   end
+
   
   # -------- Enable provisioning with Ansible.  --------
   config.vm.provision "ansible" do |ansible|
