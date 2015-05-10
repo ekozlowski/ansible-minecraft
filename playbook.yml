@@ -14,7 +14,7 @@
     sudo: true
   - file: path=/srv/minecraft-server/backups/ state=directory
     sudo: true
-  - copy: src=./files/minecraft_server.1.8.3.jar dest=/srv/minecraft-server/minecraft_server.jar
+  - copy: src=./files/minecraft_server.1.8.4.jar dest=/srv/minecraft-server/minecraft_server.jar
     sudo: true
   - copy: src=./files/eula.txt dest=/srv/minecraft-server/eula.txt
     sudo: true

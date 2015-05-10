@@ -13,11 +13,11 @@ def ping(ip):
 def save():
     with with_vagrant():
         fab.sudo('/etc/init.d/minecraft backup')
-        fab.get(remote_path='/svr/minecraft-server/backups/*', local_path="/Users/e003070/Dropbox/minecraft_backups")
+        fab.get(remote_path='/srv/minecraft-server/backups/*', local_path="/Users/e003070/Dropbox/minecraft_backups")
         
 def restore():
     with with_vagrant():
-        fab.put(remote_path='/svr/minecraft-server/backups/', local_path="/Users/e003070/Dropbox/minecraft_backups")
+        fab.put(remote_path='/srv/minecraft-server/backups/', local_path="/Users/e003070/Dropbox/minecraft_backups")
 
 
 
